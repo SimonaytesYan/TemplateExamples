@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-const int kArraySize = 5;
+const int kArraySize = 4;
 
 struct Array
 {
