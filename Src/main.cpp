@@ -16,14 +16,13 @@ void TestInt()
 
 void TestArray()
 {
-    Array<ArraySize> res_array;
     const Array<ArraySize> a = {0, 1, 2, 3};
     const Array<ArraySize> b = {1, 2, 3, 4};
-    
-    a.sum_array<0>(b, res_array);
+    Array<ArraySize> res_array;
+    a.sum(b, res_array);
 
     printf("ARRAY:\n");
-    for (int i = 0; i < kArraySize; i++)
+    for (int i = 0; i < ArraySize; i++)
         printf("%d ", res_array.value[i]);
     printf("\n");
 }
