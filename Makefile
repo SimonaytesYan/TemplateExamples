@@ -4,14 +4,18 @@ CPP   		  = g++ -O0
 
 OBJ = Obj/
 SRC	= Src/
-EXE = Exe/run
+BIN = Bin/run
 
 all:
-	$(CPP) $(SRC)main.cpp -o $(EXE)
+	$(CPP) $(SRC)main.cpp -o $(BIN)
 
 run:  all
-	objdump -D $(EXE) > log.log
+	./$(BIN)
+
+preparation:
+	-mkdir $(OBJ)
+	-mkdir Bin
 
 clean:
 	-cd $(OBJ); rm *
-	-rm $(EXE)
+	-rm $(BIN)
