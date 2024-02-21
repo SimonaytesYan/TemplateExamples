@@ -4,27 +4,51 @@
 
 #include "Arrays.hpp"
 
-const int RowNumber = 4;
+template<int row_number, int column_number>
+struct Matrix;
 
-struct Matrix
+template<int row_number, int column_number, int index>
+struct SumMatrix
 {
-    Array value[RowNumber] = {};
+    void operator()(const Matrix<row_number, column_number>& a, 
+                    const Matrix<row_number, column_number>& b, 
+                          Matrix<row_number, column_number>& res)
+    {
+        SumMatrix<row_number, column_number, index+1> sum;
+        sum(a, b, res);
+        a[index].sum(b[index], res[index]);
+    }
 };
 
-template <int x>
-void sum_matrix(const Matrix& a, const Matrix& b, Matrix& c);
-
-template <>
-void sum_matrix<RowNumber>(const Matrix& a, const Matrix& b, Matrix& c);
-
-template <int x>
-void sum_matrix(const Matrix& a, const Matrix& b, Matrix& c)
+template<int row_number, int column_number>
+struct SumMatrix<row_number, column_number, row_number>
 {
-    sum_matrix<x + 1>(a, b, c);
-    sum_array<0>(a.value[x], b.value[x], c.value[x]);
-}
+    void operator()(const Matrix<row_number, column_number>& a, 
+                const Matrix<row_number, column_number>& b, 
+                      Matrix<row_number, column_number>& res)
+    {
+    }
+};
 
-template <>
-void sum_matrix<RowNumber>(const Matrix& a, const Matrix& b, Matrix& c)
+template<int row_number, int column_number>
+struct Matrix
 {
-}
+    Array<column_number> value[row_number] = {};
+
+    void sum(const Matrix<row_number, column_number>& b, 
+                   Matrix<row_number, column_number>& res) const 
+    {
+        SumMatrix<row_number, column_number, 0> sum;
+        sum(*this, b, res);
+    }
+
+    Array<column_number> operator[](int index) const
+    {
+        return value[index];
+    }
+
+    Array<column_number>& operator[](int index)
+    {
+        return value[index];
+    }
+};

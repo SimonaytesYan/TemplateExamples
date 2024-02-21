@@ -5,14 +5,14 @@
 template<int length>
 struct Array;
 
-template<int length, int id>
+template<int length, int index>
 struct SumArray
 {
     void operator()(const Array<length>& a, const Array<length>& b, Array<length>& res)
     {
-        SumArray<length, id+1> sum;
+        SumArray<length, index+1> sum;
         sum(a, b, res);
-        res[id] = a[id] + b[id];
+        res[index] = a[index] + b[index];
     }
 };
 
