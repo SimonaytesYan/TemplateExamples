@@ -1,7 +1,5 @@
-#include "Templates.hpp"
-
+#include "Number.hpp"
 #include "Arrays.hpp"
-
 #include "Matrix.hpp"
 
 const int ArraySize = 4;
